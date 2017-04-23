@@ -1,8 +1,8 @@
-package com.github.kdvolder.proclila;
+package com.github.kdvolder.proclila.eval;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import com.github.kdvolder.proclila.Computations.Computation;
+import com.github.kdvolder.proclila.eval.Computations.Computation;
 
 public interface Environment {
 

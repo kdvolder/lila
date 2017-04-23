@@ -1,6 +1,6 @@
-package com.github.kdvolder.proclila;
+package com.github.kdvolder.proclila.eval;
 
-import com.github.kdvolder.proclila.Computations.Computation;
+import com.github.kdvolder.proclila.eval.Computations.Computation;
 
 public class Procedures {
 	

@@ -1,4 +1,4 @@
-package com.github.kdvolder.proclila;
+package com.github.kdvolder.proclila.eval;
 
 @FunctionalInterface
 public interface BinaryOperator {

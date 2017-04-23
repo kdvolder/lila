@@ -1,10 +1,11 @@
-package com.github.kdvolder.proclila;
+package com.github.kdvolder.proclila.eval;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import com.github.kdvolder.proclila.Computations.Computation;
-import com.github.kdvolder.proclila.LambdaInterp.Evaluator;
+import com.github.kdvolder.proclila.ProcLiLaParser;
 import com.github.kdvolder.proclila.ProcLiLaParser.ExprContext;
+import com.github.kdvolder.proclila.eval.Computations.Computation;
+import com.github.kdvolder.proclila.eval.LambdaInterp.Evaluator;
 
 public class EvaluatingProc implements Proc {
 

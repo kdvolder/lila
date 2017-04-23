@@ -1,4 +1,4 @@
-package com.github.kdvolder.proclila;
+package com.github.kdvolder.proclila.eval;
 
 import java.math.BigInteger;
 import java.util.Optional;
@@ -10,7 +10,9 @@ import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import com.github.kdvolder.proclila.Computations.Computation;
+import com.github.kdvolder.proclila.ProcLiLaBaseVisitor;
+import com.github.kdvolder.proclila.ProcLiLaLexer;
+import com.github.kdvolder.proclila.ProcLiLaParser;
 import com.github.kdvolder.proclila.ProcLiLaParser.ApplyContext;
 import com.github.kdvolder.proclila.ProcLiLaParser.BinOpContext;
 import com.github.kdvolder.proclila.ProcLiLaParser.BlockContext;
@@ -22,7 +24,9 @@ import com.github.kdvolder.proclila.ProcLiLaParser.IntContext;
 import com.github.kdvolder.proclila.ProcLiLaParser.LambdaContext;
 import com.github.kdvolder.proclila.ProcLiLaParser.ParensContext;
 import com.github.kdvolder.proclila.ProcLiLaParser.VarContext;
+import com.github.kdvolder.proclila.eval.Computations.Computation;
 import com.github.kdvolder.proclila.util.Functions;
+import com.github.kdvolder.proclila.util.ProcLiLaException;
 
 public class LambdaInterp {
 

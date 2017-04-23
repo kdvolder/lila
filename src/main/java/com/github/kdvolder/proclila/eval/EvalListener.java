@@ -1,7 +1,7 @@
-package com.github.kdvolder.proclila;
+package com.github.kdvolder.proclila.eval;
 
-import com.github.kdvolder.proclila.LambdaInterp.Evaluator;
 import com.github.kdvolder.proclila.ProcLiLaParser.ExprContext;
+import com.github.kdvolder.proclila.eval.LambdaInterp.Evaluator;
 
 public interface EvalListener {
 	

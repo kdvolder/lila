@@ -7,8 +7,10 @@ import java.math.BigInteger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.kdvolder.proclila.LambdaInterp.Evaluator;
 import com.github.kdvolder.proclila.ProcLiLaParser.ExprContext;
+import com.github.kdvolder.proclila.eval.EvalListener;
+import com.github.kdvolder.proclila.eval.LambdaInterp;
+import com.github.kdvolder.proclila.eval.LambdaInterp.Evaluator;
 
 public class LambdaInterpTest {
 

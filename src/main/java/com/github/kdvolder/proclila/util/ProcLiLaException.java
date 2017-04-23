@@ -1,4 +1,4 @@
-package com.github.kdvolder.proclila;
+package com.github.kdvolder.proclila.util;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -13,7 +13,7 @@ public class ProcLiLaException extends Exception {
 		this.node = node;
 	}
 
-	ProcLiLaException(ParseTree node, Exception e) {
+	public ProcLiLaException(ParseTree node, Exception e) {
 		super(e);
 		this.node = node;
 	}

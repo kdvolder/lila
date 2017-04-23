@@ -1,4 +1,4 @@
-package com.github.kdvolder.proclila;
+package com.github.kdvolder.proclila.eval;
 
 import java.util.concurrent.Callable;
 import java.util.function.Function;

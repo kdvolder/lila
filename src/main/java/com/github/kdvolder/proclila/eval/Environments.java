@@ -1,4 +1,4 @@
-package com.github.kdvolder.proclila;
+package com.github.kdvolder.proclila.eval;
 
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -7,7 +7,8 @@ import java.util.Objects;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import com.github.kdvolder.proclila.Computations.Computation;
+import com.github.kdvolder.proclila.eval.Computations.Computation;
+import com.github.kdvolder.proclila.util.ProcLiLaException;
 
 public class Environments {
 
