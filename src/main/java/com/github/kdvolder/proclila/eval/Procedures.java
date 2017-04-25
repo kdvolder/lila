@@ -4,9 +4,9 @@ import com.github.kdvolder.proclila.eval.Computations.Computation;
 
 public class Procedures {
 	
-	private Computations computations;
+	private Computations<Object> computations;
 
-	public Procedures(Computations computations) {
+	public Procedures(Computations<Object> computations) {
 		this.computations = computations;
 	}
 

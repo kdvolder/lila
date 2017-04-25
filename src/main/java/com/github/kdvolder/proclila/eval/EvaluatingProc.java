@@ -2,20 +2,21 @@ package com.github.kdvolder.proclila.eval;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import com.github.kdvolder.proclila.ProcLiLaParser;
 import com.github.kdvolder.proclila.ProcLiLaParser.ExprContext;
 import com.github.kdvolder.proclila.eval.Computations.Computation;
 import com.github.kdvolder.proclila.eval.LambdaInterp.Evaluator;
 
 public class EvaluatingProc implements Proc {
 
-	private final Environment lexicalEnv;
+	private final Computations<Object> c;
+	private final Environment<Object> lexicalEnv;
 	private final TerminalNode id;
 	private final ExprContext expr;
 	private final Evaluator eval;
 	private final Computation<Object> body;
 
-	public EvaluatingProc(Evaluator eval, Environment env, TerminalNode id, ExprContext expr) {
+	public EvaluatingProc(Computations<Object> c, Evaluator eval, Environment<Object> env, TerminalNode id, ExprContext expr) {
+		this.c = c;
 		this.eval = eval;
 		this.lexicalEnv = env;
 		this.id = id;
@@ -25,9 +26,9 @@ public class EvaluatingProc implements Proc {
 	
 	@Override
 	public Computation<Object> apply(Object arg) {
-		Environment bodyEnv = this.lexicalEnv.extend();
+		Environment<Object> bodyEnv = this.lexicalEnv.extend();
 		return bodyEnv.def(id, arg)
-		.then(ignore -> body.useEnv(bodyEnv));
+		.then(ignore -> c.useEnv(body, bodyEnv));
 	}
 
 	@Override

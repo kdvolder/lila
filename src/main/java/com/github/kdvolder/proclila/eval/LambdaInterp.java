@@ -25,12 +25,13 @@ import com.github.kdvolder.proclila.ProcLiLaParser.LambdaContext;
 import com.github.kdvolder.proclila.ProcLiLaParser.ParensContext;
 import com.github.kdvolder.proclila.ProcLiLaParser.VarContext;
 import com.github.kdvolder.proclila.eval.Computations.Computation;
+import com.github.kdvolder.proclila.eval.DefaultComputations.EnvMonad;
 import com.github.kdvolder.proclila.util.Functions;
 import com.github.kdvolder.proclila.util.ProcLiLaException;
 
 public class LambdaInterp {
 
-	private Computations c = new DefaultComputations();
+	private DefaultComputations<Object> c = new DefaultComputations<>();
 	
 	public class Evaluator extends ProcLiLaBaseVisitor<Computation<Object>> {
 
@@ -81,7 +82,7 @@ public class LambdaInterp {
 		public Computation<Object> visitLambda(LambdaContext ctx) {
 			return trace(ctx, 
 				c.withEnv(env -> 
-					c.just(new EvaluatingProc(this, env, ctx.ID(), ctx.expr()))
+					c.just(new EvaluatingProc(c, this, env, ctx.ID(), ctx.expr()))
 				)
 			);
 		}
@@ -97,7 +98,8 @@ public class LambdaInterp {
 //		| ID								# var
 		@Override
 		public Computation<Object> visitVar(VarContext ctx) {
-			return trace(ctx, c.withEnv(env -> env.get(ctx.ID())));
+			Computation<Object> getVar = c.withEnv(env -> env.get(ctx.ID()));
+			return trace(ctx, getVar);
 		}
 		
 //		| ID ':' expr				# def
@@ -185,7 +187,11 @@ public class LambdaInterp {
 		
 		System.out.println(expr.toStringTree(parser));
 		
-		return c.run(expr.accept(new Evaluator(parser)));
+		Procedures procedures = new Procedures(c);
+		Environments envs = new Environments(c, procedures);
+		DefaultComputations<Object>.EnvMonad<Object> evaluator = 
+				(DefaultComputations<Object>.EnvMonad<Object>) expr.accept(new Evaluator(parser));
+		return evaluator.compute(envs.global());
 	}
 
 

@@ -20,10 +20,10 @@ public class Environments {
 		this.procedures = procedures;
 	}
 
-	private abstract class AbstractEnv implements Environment {
+	private abstract class AbstractEnv<T> implements Environment<T> {
 		
 		@Override
-		public final Computation<Object> def(TerminalNode id, Object value) {
+		public final Computation<T> def(TerminalNode id, T value) {
 			try {
 				def(id.getText(), value);
 				return computations.just(value);
@@ -33,22 +33,22 @@ public class Environments {
 		}
 		
 		@Override
-		public Environment extend() {
-			return new ExtendedEnv(this);
+		public Environment<T> extend() {
+			return new ExtendedEnv<>(this);
 		}
 	}
 
-	private class ExtendedEnv extends AbstractEnv {
+	private class ExtendedEnv<T> extends AbstractEnv<T> {
 
-		private final Environment parent;
-		private final Map<String, Object> frame = new HashMap<>();
+		private final Environment<T> parent;
+		private final Map<String, T> frame = new HashMap<>();
 		
-		public ExtendedEnv(Environment parent) {
+		public ExtendedEnv(Environment<T> parent) {
 			this.parent = parent;
 		}
 
 		@Override
-		public Computation<Object> def(String id, Object value) {
+		public Computation<T> def(String id, T value) {
 			String key = id;
 			if (frame.containsKey(key)) {
 				return computations.fail(new Exception("'"+id+"' is already defined"));
@@ -58,7 +58,7 @@ public class Environments {
 		}
 
 		@Override
-		public Computation<Object> get(TerminalNode id) {
+		public Computation<T> get(TerminalNode id) {
 			String key = id.getText();
 			if (frame.containsKey(key)) {
 				return computations.just(frame.get(key));
@@ -67,23 +67,23 @@ public class Environments {
 		}
 	}
 
-	private class EmtpyEnv extends AbstractEnv {
+	private class EmtpyEnv<T> extends AbstractEnv<T> {
 
 		@Override
-		public Computation<Object> def(String id, Object value) {
+		public Computation<T> def(String id, Object value) {
 			return computations.fail(new Exception("Can't add definition '"+id+"' to a closed Env!"));
 		}
 
 		@Override
-		public Computation<Object> get(TerminalNode id) {
+		public Computation<T> get(TerminalNode id) {
 			return computations.fail(new ProcLiLaException(id, "Unknown variable: "+id));
 		}
 
 	}
 
-	public Environment global() {
+	public Environment<Object> global() {
 		try {
-			Environment g = new EmtpyEnv()
+			Environment<Object> g = new EmtpyEnv<>()
 					.extend();
 			binary(g, "==", Objects::equals);
 			binary(g, "*", (a, b) -> asNumber(a).multiply(asNumber(b)));

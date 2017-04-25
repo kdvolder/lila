@@ -4,16 +4,16 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 import com.github.kdvolder.proclila.eval.Computations.Computation;
 
-public interface Environment {
+public interface Environment<T> {
 
-	Computation<Object> def(TerminalNode id, Object value);
-	Computation<Object> def(String name, Object value);
+	Computation<T> def(TerminalNode id, T value);
+	Computation<T> def(String name, T value);
 
 	/**
 	 * Adds a new empty frame to environment.
 	 */
-	Environment extend();
+	Environment<T> extend();
 
-	Computation<Object> get(TerminalNode terminalNode);
+	Computation<T> get(TerminalNode terminalNode);
 
 }
